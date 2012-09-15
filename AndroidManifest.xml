@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="15" />
 
     <application
@@ -14,11 +14,21 @@
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera" >
+        </activity>
+        <activity
+            android:name=".PlaceListActivity"
+            android:label="@string/title_place_list" >
+        </activity>
+        <activity
+            android:name=".PlaceDetailActivity"
+            android:label="@string/title_place_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PlaceListActivity" />
         </activity>
     </application>
 
