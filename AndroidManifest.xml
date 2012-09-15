@@ -13,15 +13,20 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map" android:parentActivityName="@string/title_place_list">
         </activity>
         <activity
             android:name=".CameraActivity"
-            android:label="@string/title_activity_camera" >
+            android:label="@string/title_activity_camera" android:parentActivityName="@string/title_place_list">
         </activity>
         <activity
             android:name=".PlaceListActivity"
             android:label="@string/title_place_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".PlaceDetailActivity"
