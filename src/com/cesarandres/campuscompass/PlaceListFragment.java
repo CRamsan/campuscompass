@@ -71,7 +71,7 @@ public class PlaceListFragment extends ListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
-		mCallbacks.onItemSelected(ContentNDSU.ITEMS.get(position).id);
+		mCallbacks.onItemSelected(Integer.toString(position));
 	}
 
 	@Override

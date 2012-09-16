@@ -12,8 +12,7 @@ import android.widget.TextView;
 public class PlaceDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
-
-    ContentNDSU.DummyItem mItem;
+    private int index = -1;
 
     public PlaceDetailFragment() {
     }
@@ -22,7 +21,7 @@ public class PlaceDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = ContentNDSU.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            index = Integer.parseInt(getArguments().getString(ARG_ITEM_ID));
         }
     }
 
@@ -30,8 +29,8 @@ public class PlaceDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_place_detail, container, false);
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.place_detail)).setText(mItem.content);
+        if (index != -1) {
+            ((TextView) rootView.findViewById(R.id.place_detail)).setText(ContentNDSU.places_names[index]);
         }
         return rootView;
     }

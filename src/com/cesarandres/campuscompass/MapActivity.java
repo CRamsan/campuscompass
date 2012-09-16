@@ -16,7 +16,7 @@ public class MapActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_map, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 

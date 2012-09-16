@@ -4,41 +4,46 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 
-public class PlaceListActivity extends FragmentActivity
-        implements PlaceListFragment.Callbacks {
+public class PlaceListActivity extends FragmentActivity implements
+		PlaceListFragment.Callbacks {
 
-    private boolean mTwoPane;
+	private boolean mTwoPane;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place_list);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_place_list);
 
-        if (findViewById(R.id.place_detail_container) != null) {
-            mTwoPane = true;
-            ((PlaceListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.place_list))
-                    .setActivateOnItemClick(true);
-        }
-    }
+		if (findViewById(R.id.place_detail_container) != null) {
+			mTwoPane = true;
+			((PlaceListFragment) getSupportFragmentManager().findFragmentById(
+					R.id.place_list)).setActivateOnItemClick(true);
+		}
+	}
 
-    @Override
-    public void onItemSelected(String id) {
-        if (mTwoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putString(PlaceDetailFragment.ARG_ITEM_ID, id);
-            PlaceDetailFragment fragment = new PlaceDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.place_detail_container, fragment)
-                    .commit();
+	@Override
+	public void onItemSelected(String id) {
+		if (mTwoPane) {
+			Bundle arguments = new Bundle();
+			arguments.putString(PlaceDetailFragment.ARG_ITEM_ID, id);
+			PlaceDetailFragment fragment = new PlaceDetailFragment();
+			fragment.setArguments(arguments);
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.place_detail_container, fragment).commit();
 
-        } else {
-            Intent detailIntent = new Intent(this, PlaceDetailActivity.class);
-            detailIntent.putExtra(PlaceDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
-    }
+		} else {
+			Intent detailIntent = new Intent(this, PlaceDetailActivity.class);
+			detailIntent.putExtra(PlaceDetailFragment.ARG_ITEM_ID, id);
+			startActivity(detailIntent);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu, menu);
+		return true;
+	}
 }

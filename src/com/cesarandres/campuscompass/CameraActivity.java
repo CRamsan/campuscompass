@@ -16,7 +16,7 @@ public class CameraActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_camera, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 

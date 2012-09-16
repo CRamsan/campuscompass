@@ -3,6 +3,10 @@
     <string name="app_name">CampusCompass</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="text_listmode">List View</string>
+    <string name="text_cameramode">Camera View</string>
+    <string name="text_exit">Exit</string>
+    <string name="text_mapmode">Map View</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_camera">CameraActivity</string>
     <string name="title_place_detail">Place Detail</string>
