@@ -1,8 +1,5 @@
 package com.cesarandres.campuscompass;
 
-import com.cesarandres.campuscompass.dummy.DummyContent;
-
-import android.R;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,14 +7,16 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.cesarandres.campuscompass.dummy.ContentNDSU;
 
 public class PlaceListFragment extends ListFragment {
 
 	private static final String STATE_ACTIVATED_POSITION = "activated_position";
-	private int arraySize = 0;
 	private Callbacks mCallbacks = sDummyCallbacks;
 	private int mActivatedPosition = ListView.INVALID_POSITION;
 
@@ -38,8 +37,7 @@ public class PlaceListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-				R.layout.simple_list_item_1, R.id.text1, DummyContent.ITEMS));
+		setListAdapter(new PlacesAdapter(getActivity()));
 	}
 
 	@Override
@@ -73,7 +71,7 @@ public class PlaceListFragment extends ListFragment {
 	public void onListItemClick(ListView listView, View view, int position,
 			long id) {
 		super.onListItemClick(listView, view, position, id);
-		mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+		mCallbacks.onItemSelected(ContentNDSU.ITEMS.get(position).id);
 	}
 
 	@Override
@@ -105,30 +103,69 @@ public class PlaceListFragment extends ListFragment {
 		public PlacesAdapter(Context context) {
 			// Cache the LayoutInflate to avoid asking for a new one each time.
 			mInflater = LayoutInflater.from(context);
+
 		}
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
-			return 0;
+			return ContentNDSU.places_names.length;
 		}
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
+			return position;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
+			return position;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			return null;
+			// A ViewHolder keeps references to children views to avoid
+			// unneccessary calls
+			// to findViewById() on each row.
+			ViewHolder holder;
+
+			// When convertView is not null, we can reuse it directly, there is
+			// no need
+			// to reinflate it. We only inflate a new View when the convertView
+			// supplied
+			// by ListView is null.
+			if (convertView == null) {
+				convertView = mInflater.inflate(R.layout.item_place, null);
+
+				// Creates a ViewHolder and store references to the two children
+				// views
+				// we want to bind data to.
+				holder = new ViewHolder();
+				holder.name = (TextView) convertView
+						.findViewById(R.id.textViewItemName);
+				holder.description = (TextView) convertView
+						.findViewById(R.id.textViewItemDescription);
+				holder.icon = (ImageView) convertView
+						.findViewById(R.id.imageViewItemIcon);
+
+				convertView.setTag(holder);
+			} else {
+				// Get the ViewHolder back to get fast access to the TextView
+				// and the ImageView.
+				holder = (ViewHolder) convertView.getTag();
+			}
+
+			// Bind the data efficiently with the holder.
+			holder.name.setText(ContentNDSU.places_names[position]);
+			holder.description.setText(ContentNDSU.places_descriptions[position]);
+			holder.icon.setImageResource(R.drawable.ic_launcher);
+
+			return convertView;
+		}
+
+		static class ViewHolder {
+			TextView name;
+			TextView description;
+			ImageView icon;
 		}
 
 	}

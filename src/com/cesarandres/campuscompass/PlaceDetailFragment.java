@@ -1,6 +1,6 @@
 package com.cesarandres.campuscompass;
 
-import com.cesarandres.campuscompass.dummy.DummyContent;
+import com.cesarandres.campuscompass.dummy.ContentNDSU;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,7 @@ public class PlaceDetailFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
 
-    DummyContent.DummyItem mItem;
+    ContentNDSU.DummyItem mItem;
 
     public PlaceDetailFragment() {
     }
@@ -22,7 +22,7 @@ public class PlaceDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = ContentNDSU.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
 
