@@ -42,6 +42,33 @@ public class PlaceListActivity extends FragmentActivity implements
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			NavUtils.navigateUpTo(this, new Intent(this,
+					PlaceListActivity.class));
+			return true;
+		}
+		Intent intent = null;
+		switch (item.getItemId()) {
+		case R.id.menu_cameramode:
+			intent = new Intent(getApplicationContext(), CameraActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.menu_mapmode:
+			intent = new Intent(getApplicationContext(), NDSUMapActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.menu_settings:
+			return true;
+		case R.id.menu_exit:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
