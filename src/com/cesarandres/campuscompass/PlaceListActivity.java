@@ -1,5 +1,8 @@
 package com.cesarandres.campuscompass;
 
+import com.cesarandres.campuscompass.camera.CameraActivity;
+import com.cesarandres.campuscompass.map.NDSUMapActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

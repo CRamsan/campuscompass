@@ -1,8 +1,6 @@
-package com.cesarandres.campuscompass;
+package com.cesarandres.campuscompass.camera;
 
 import java.io.IOException;
-
-import com.cesarandres.campuscompass.CameraActivity.CameraPreview.AugmentedRealityThread;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -11,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -20,6 +19,14 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.FrameLayout;
+
+import com.cesarandres.campuscompass.PlaceListActivity;
+import com.cesarandres.campuscompass.R;
+import com.cesarandres.campuscompass.R.id;
+import com.cesarandres.campuscompass.R.layout;
+import com.cesarandres.campuscompass.R.menu;
+import com.cesarandres.campuscompass.camera.CameraActivity.CameraPreview.AugmentedRealityThread;
+import com.cesarandres.campuscompass.map.NDSUMapActivity;
 
 public class CameraActivity extends Activity {
 
@@ -43,7 +50,6 @@ public class CameraActivity extends Activity {
 			mPreview = new CameraPreview(this, mCamera);
 			FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
 			preview.addView(mPreview);
-
 		}
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar actionBar = getActionBar();
@@ -141,6 +147,7 @@ public class CameraActivity extends Activity {
 			mHolder.addCallback(this);
 			// deprecated setting, but required on Android versions prior to 3.0
 			mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+			arThread = new AugmentedRealityThread(mHolder, getApplicationContext());
 		}
 
 		public void surfaceCreated(SurfaceHolder holder) {
@@ -154,8 +161,8 @@ public class CameraActivity extends Activity {
 				Log.d(TAG, "Error setting camera preview: " + e.getMessage());
 			}
 
-			//arThread.setRunning(true);
-			//arThread.start();
+			// arThread.setRunning(true);
+			// arThread.start();
 		}
 
 		/**
@@ -391,7 +398,7 @@ public class CameraActivity extends Activity {
 					mCanvasHeight = height;
 				}
 			}
-
+			
 			/**
 			 * Resumes from a pause.
 			 */
@@ -404,6 +411,8 @@ public class CameraActivity extends Activity {
 			 * Canvas.
 			 */
 			private void doDraw(Canvas canvas) {
+				Paint paint = new Paint();
+				canvas.drawRect(10f, 10f, 20f, 20f, paint);
 			}
 
 			/**

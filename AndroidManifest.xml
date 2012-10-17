@@ -23,13 +23,13 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name=".NDSUMapActivity"
+            android:name=".map.NDSUMapActivity"
             android:label="@string/title_activity_map"
             android:launchMode="standard"
             android:parentActivityName="@string/title_place_list" >
         </activity>
         <activity
-            android:name=".CameraActivity"
+            android:name=".camera.CameraActivity"
             android:label="@string/title_activity_camera"
             android:launchMode="standard"
             android:parentActivityName="@string/title_place_list"
