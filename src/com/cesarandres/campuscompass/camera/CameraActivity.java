@@ -6,8 +6,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -18,14 +21,20 @@ import com.cesarandres.campuscompass.PlaceListActivity;
 import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.AugmentedRealityView.AugmentedRealityThread;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
+import com.cesarandres.campuscompass.modules.Locator;
+import com.cesarandres.campuscompass.modules.UpdatableActivity;
 
-public class CameraActivity extends Activity {
+public class CameraActivity extends Activity implements SensorEventListener,
+		UpdatableActivity {
 
 	public static final String TAG = "CameraActivity";
 	private Camera mCamera;
 	private CameraPreview mPreview;
 	private AugmentedRealityView mARView;
 	private AugmentedRealityThread arThread;
+	private SensorManager mSensorManager;
+	private Sensor mSensor;
+	private Locator locator;
 
 	@SuppressLint({ "NewApi", "NewApi" })
 	@Override
@@ -59,20 +68,30 @@ public class CameraActivity extends Activity {
 			// we are being restored: resume a previous game
 			arThread.restoreState(savedInstanceState);
 		}
+
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+
+		locator = new Locator(this);
+		locator.updateLocationFromLastKnownLocation();
 	}
 
-	
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
+		locator.startListening(this);
 		arThread.setRunning(true);
+		mSensorManager.registerListener(this, mSensor,
+				SensorManager.SENSOR_DELAY_NORMAL);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
+		locator.stopListening(this);
 		releaseCamera(); // release the camera immediately on pause event
 		arThread.setRunning(false);
+		mSensorManager.unregisterListener(this);
 	}
 
 	private void releaseCamera() {
@@ -119,6 +138,10 @@ public class CameraActivity extends Activity {
 		return true;
 	}
 
+	public void updateBestLocation() {
+		locator.getBestLocation();
+	}
+
 	/** Check if this device has a camera */
 	private boolean checkCameraHardware(Context context) {
 		if (context.getPackageManager().hasSystemFeature(
@@ -142,4 +165,18 @@ public class CameraActivity extends Activity {
 		return c; // returns null if camera is unavailable
 	}
 
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		float azimuth_angle = event.values[0];
+		float pitch_angle = event.values[1];
+		float roll_angle = event.values[2];
+		// System.out.println("DIRECTION: " + azimuth_angle);
+		// System.out.println("PITCH: " + pitch_angle);
+	}
 }
