@@ -1,14 +1,11 @@
 package com.cesarandres.campuscompass.camera;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.hardware.Camera;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -19,7 +16,7 @@ public class AugmentedRealityView extends SurfaceView implements
 	private AugmentedRealityThread arThread;
 	private Context mContext;
 	private Paint mLinePaint;
-	
+
 	public class AugmentedRealityThread extends Thread {
 
 		public static final int STATE_LOSE = 1;
@@ -56,6 +53,7 @@ public class AugmentedRealityView extends SurfaceView implements
 				Context context) {
 			// get handles to some important objects
 			mSurfaceHolder = surfaceHolder;
+			mSurfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
 			mContext = context;
 		}
 
@@ -69,18 +67,8 @@ public class AugmentedRealityView extends SurfaceView implements
 		}
 
 		/**
-		 * Pauses the physics update & animation.
-		 */
-		public void pause() {
-			synchronized (mSurfaceHolder) {
-				if (mMode == STATE_RUNNING)
-					setState(STATE_PAUSE);
-			}
-		}
-
-		/**
-		 * Restores game state from the indicated Bundle. Typically called
-		 * when the Activity is being restored after having been previously
+		 * Restores game state from the indicated Bundle. Typically called when
+		 * the Activity is being restored after having been previously
 		 * destroyed.
 		 * 
 		 * @param savedState
@@ -143,8 +131,8 @@ public class AugmentedRealityView extends SurfaceView implements
 		}
 
 		/**
-		 * Sets the game mode. That is, whether we are running, paused, in
-		 * the failure state, in the victory state, etc.
+		 * Sets the game mode. That is, whether we are running, paused, in the
+		 * failure state, in the victory state, etc.
 		 * 
 		 * @see #setState(int, CharSequence)
 		 * @param mode
@@ -157,8 +145,8 @@ public class AugmentedRealityView extends SurfaceView implements
 		}
 
 		/**
-		 * Sets the game mode. That is, whether we are running, paused, in
-		 * the failure state, in the victory state, etc.
+		 * Sets the game mode. That is, whether we are running, paused, in the
+		 * failure state, in the victory state, etc.
 		 * 
 		 * @param mode
 		 *            one of the STATE_* constants
@@ -167,13 +155,12 @@ public class AugmentedRealityView extends SurfaceView implements
 		 */
 		public void setState(int mode, CharSequence message) {
 			/*
-			 * This method optionally can cause a text message to be
-			 * displayed to the user when the mode changes. Since the View
-			 * that actually renders that text is part of the main View
-			 * hierarchy and not owned by this thread, we can't touch the
-			 * state of that View. Instead we use a Message + Handler to
-			 * relay commands to the main thread, which updates the
-			 * user-text View.
+			 * This method optionally can cause a text message to be displayed
+			 * to the user when the mode changes. Since the View that actually
+			 * renders that text is part of the main View hierarchy and not
+			 * owned by this thread, we can't touch the state of that View.
+			 * Instead we use a Message + Handler to relay commands to the main
+			 * thread, which updates the user-text View.
 			 */
 			synchronized (mSurfaceHolder) {
 				mMode = mode;
@@ -189,13 +176,6 @@ public class AugmentedRealityView extends SurfaceView implements
 				mCanvasHeight = height;
 			}
 		}
-		
-		/**
-		 * Resumes from a pause.
-		 */
-		public void unpause() {
-			setState(STATE_RUNNING);
-		}
 
 		/**
 		 * Draws the ship, fuel/speed bars, and background to the provided
@@ -206,15 +186,14 @@ public class AugmentedRealityView extends SurfaceView implements
 		}
 
 		/**
-		 * Figures the lander state (x, y, fuel, ...) based on the passage
-		 * of realtime. Does not invalidate(). Called at the start of
-		 * draw(). Detects the end-of-game and sets the UI to the next
-		 * state.
+		 * Figures the lander state (x, y, fuel, ...) based on the passage of
+		 * realtime. Does not invalidate(). Called at the start of draw().
+		 * Detects the end-of-game and sets the UI to the next state.
 		 */
 		private void updatePhysics() {
 		}
 	}
-	
+
 	public AugmentedRealityView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// Install a SurfaceHolder.Callback so we get notified when the
@@ -224,13 +203,12 @@ public class AugmentedRealityView extends SurfaceView implements
 		// deprecated setting, but required on Android versions prior to 3.0
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		arThread = new AugmentedRealityThread(mHolder, context);
-		
-        mLinePaint = new Paint();
-        mLinePaint.setAntiAlias(true);
-        mLinePaint.setARGB(255, 255, 0, 0);
+
+		mLinePaint = new Paint();
+		mLinePaint.setAntiAlias(true);
+		mLinePaint.setARGB(255, 255, 0, 0);
 	}
 
-	
 	/**
 	 * Fetches the animation thread corresponding to this LunarView.
 	 * 
@@ -240,16 +218,6 @@ public class AugmentedRealityView extends SurfaceView implements
 		return arThread;
 	}
 
-	/**
-	 * Standard window-focus override. Notice focus lost so we can pause on
-	 * focus lost. e.g. user switches to take a call.
-	 */
-	@Override
-	public void onWindowFocusChanged(boolean hasWindowFocus) {
-		if (!hasWindowFocus)
-			arThread.pause();
-	}
-	
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// Take care of releasing the Camera preview in your
 		// activity.
@@ -269,9 +237,7 @@ public class AugmentedRealityView extends SurfaceView implements
 		arThread.start();
 	}
 
-	
-	public void surfaceChanged(SurfaceHolder holder, int format, int w,
-			int h) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 		// If your preview can change or rotate, take care of those events
 		// here.
 		// Make sure to stop the preview before resizing or reformatting it.

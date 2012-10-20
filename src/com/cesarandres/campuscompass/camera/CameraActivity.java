@@ -61,10 +61,18 @@ public class CameraActivity extends Activity {
 		}
 	}
 
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		arThread.setRunning(true);
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
 		releaseCamera(); // release the camera immediately on pause event
+		arThread.setRunning(false);
 	}
 
 	private void releaseCamera() {
