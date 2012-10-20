@@ -2,5 +2,4 @@
     android:id="@+id/camera_preview"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
 </FrameLayout>
