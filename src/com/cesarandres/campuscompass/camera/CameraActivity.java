@@ -22,10 +22,10 @@ import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.AugmentedRealityView.AugmentedRealityThread;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
 import com.cesarandres.campuscompass.modules.Locator;
-import com.cesarandres.campuscompass.modules.UpdatableActivity;
+import com.cesarandres.campuscompass.modules.IUpdatableActivity;
 
 public class CameraActivity extends Activity implements SensorEventListener,
-		UpdatableActivity {
+		IUpdatableActivity {
 
 	public static final String TAG = "CameraActivity";
 	private Camera mCamera;
@@ -176,7 +176,9 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		float azimuth_angle = event.values[0];
 		float pitch_angle = event.values[1];
 		float roll_angle = event.values[2];
-		// System.out.println("DIRECTION: " + azimuth_angle);
-		// System.out.println("PITCH: " + pitch_angle);
+		mARView.pitch_angle = (int) pitch_angle;
+		//System.out.println("D: " + azimuth_angle);
+		//System.out.println("P: " + pitch_angle);
+		//System.out.println("R: " + roll_angle);
 	}
 }

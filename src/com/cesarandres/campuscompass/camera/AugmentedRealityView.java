@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -16,6 +17,9 @@ public class AugmentedRealityView extends SurfaceView implements
 	private AugmentedRealityThread arThread;
 	private Context mContext;
 	private Paint mLinePaint;
+
+	public int direction_angle = 0;
+	public int pitch_angle = 0;
 
 	public class AugmentedRealityThread extends Thread {
 
@@ -85,7 +89,7 @@ public class AugmentedRealityView extends SurfaceView implements
 			while (mRun) {
 				Canvas c = null;
 				try {
-					c = mSurfaceHolder.lockCanvas();
+					c = mSurfaceHolder.lockCanvas(null);
 					synchronized (mSurfaceHolder) {
 						if (mMode == STATE_RUNNING)
 							updatePhysics();
@@ -182,7 +186,14 @@ public class AugmentedRealityView extends SurfaceView implements
 		 * Canvas.
 		 */
 		private void doDraw(Canvas canvas) {
-			canvas.drawRect(10f, 10f, 100f, 100f, mLinePaint);
+			// -10 - 179
+			canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+			float lineY = (((pitch_angle) / 90f) * mCanvasHeight * -1)
+					- mCanvasHeight / 2;
+			//System.out.println(pitch_angle + "--" + lineY);
+			if (lineY >= 0 && lineY <= mCanvasHeight) {
+				canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
+			}
 		}
 
 		/**
