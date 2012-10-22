@@ -19,6 +19,7 @@ public class AugmentedRealityView extends SurfaceView implements
 	private Paint mLinePaint;
 
 	public int direction_angle = 0;
+	public int direction_dest_angle = 0;
 	public int pitch_angle = 0;
 
 	public class AugmentedRealityThread extends Thread {
@@ -186,13 +187,21 @@ public class AugmentedRealityView extends SurfaceView implements
 		 * Canvas.
 		 */
 		private void doDraw(Canvas canvas) {
-			// -10 - 179
+			// 0 - 179.9
+			// MU 46.822937
+			// -96.801003
 			canvas.drawColor(0, PorterDuff.Mode.CLEAR);
 			float lineY = (((pitch_angle) / 90f) * mCanvasHeight * -1)
 					- mCanvasHeight / 2;
-			//System.out.println(pitch_angle + "--" + lineY);
+			System.out.println("Looking for " + (direction_dest_angle));
+			System.out.println("Aiming at " + direction_angle);
+			float lineX = ((direction_angle - direction_dest_angle) / 360f) * mCanvasWidth;
 			if (lineY >= 0 && lineY <= mCanvasHeight) {
 				canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
+			}
+			if (lineX >= 0 && lineX <= mCanvasWidth) {
+				canvas.drawLine(mCanvasWidth - lineX, 0, mCanvasWidth - lineX,
+						mCanvasHeight, mLinePaint);
 			}
 		}
 

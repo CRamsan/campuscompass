@@ -139,7 +139,31 @@ public class CameraActivity extends Activity implements SensorEventListener,
 	}
 
 	public void updateBestLocation() {
-		locator.getBestLocation();
+		// MU 46.822937
+		// -96.801003
+		double lat = locator.getBestLocation().getLatitude();
+		double lon = locator.getBestLocation().getLongitude();
+
+		// double lat_dist = lat - 46.822937;
+		// double lon_dist = lon + 96.801003;
+
+		// Left 0
+		// double lat_dist = 46.900375366 - lat;
+		// double lon_dist = -96.799201965 + lon;
+
+		// Up 88
+		// double lat_dist = lat - 46.911750793;
+		// double lon_dist = lon + 96.791503906;
+
+		/*
+		 * double direction = ((Math.atan(lat_dist / (-1 * lon_dist)) - (Math.PI
+		 * / 2)) * 180f / Math.PI) + 2; if (direction < 0) { direction =
+		 * direction + 360; }
+		 */
+
+		// double direction = Locator.Bearing(lat, lon, 46.822937, -96.801003);
+		double direction = Locator.Bearing(lat, lon, 46.900375366, -96.799201965);
+		mARView.direction_dest_angle = (int) direction;
 	}
 
 	/** Check if this device has a camera */
@@ -177,8 +201,9 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		float pitch_angle = event.values[1];
 		float roll_angle = event.values[2];
 		mARView.pitch_angle = (int) pitch_angle;
-		//System.out.println("D: " + azimuth_angle);
-		//System.out.println("P: " + pitch_angle);
-		//System.out.println("R: " + roll_angle);
+		mARView.direction_angle = (int) azimuth_angle;
+		// System.out.println("D: " + azimuth_angle);
+		// System.out.println("P: " + pitch_angle);
+		// System.out.println("R: " + roll_angle);
 	}
 }

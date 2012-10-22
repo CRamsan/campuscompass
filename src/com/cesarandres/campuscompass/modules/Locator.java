@@ -2,13 +2,11 @@ package com.cesarandres.campuscompass.modules;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class Locator {
@@ -34,7 +32,8 @@ public class Locator {
 		this.activity = activity;
 		// Acquire a reference to the system Location Manager
 		locationListener = new MobileLocationListener();
-		locationManager = (LocationManager) ((Activity)activity).getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) ((Activity) activity)
+				.getSystemService(Context.LOCATION_SERVICE);
 
 	}
 
@@ -58,7 +57,8 @@ public class Locator {
 	// ===========================================================
 	public void updateActivity(IUpdatableActivity newActivity) {
 		this.activity = newActivity;
-		locationManager = (LocationManager) ((Activity)newActivity).getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) ((Activity) newActivity)
+				.getSystemService(Context.LOCATION_SERVICE);
 
 	}
 
@@ -76,14 +76,11 @@ public class Locator {
 
 	public void startListening(Context context) {
 		if (!isLitening) {
-			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences((Context) activity);
-			int updateInterval = Integer.parseInt(sharedPrefs.getString("updates_interval", "0"));
-			if (updateInterval != 0) {
-				locationManager.requestLocationUpdates(
-						LocationManager.GPS_PROVIDER, updateInterval, 10f,
-						locationListener);
-				isLitening = true;
-			}
+			int updateInterval = 10;
+			locationManager.requestLocationUpdates(
+					LocationManager.GPS_PROVIDER, updateInterval, 10f,
+					locationListener);
+			isLitening = true;
 		}
 	}
 
@@ -207,6 +204,35 @@ public class Locator {
 			Log.v("Locator", "Provider Disabled " + provider);
 		}
 
+	}
+
+	public static double RadToDeg(double radians) {
+		return radians * (180 / Math.PI);
+	}
+
+	public static double DegToRad(double degrees) {
+		return degrees * (Math.PI / 180);
+	}
+
+	public static double Bearing(double lat1, double long1, double lat2,
+			double long2) {
+		// Convert input values to radians
+		lat1 = DegToRad(lat1);
+		long1 = DegToRad(long1);
+		lat2 = DegToRad(lat2);
+		long2 = DegToRad(long2);
+
+		double deltaLong = long2 - long1;
+
+		double y = Math.sin(deltaLong) * Math.cos(lat2);
+		double x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1)
+				* Math.cos(lat2) * Math.cos(deltaLong);
+		double bearing = Math.atan2(y, x);
+		return ConvertToBearing(RadToDeg(bearing));
+	}
+
+	public static double ConvertToBearing(double deg) {
+		return (deg + 360) % 360;
 	}
 
 }
