@@ -193,14 +193,22 @@ public class AugmentedRealityView extends SurfaceView implements
 			canvas.drawColor(0, PorterDuff.Mode.CLEAR);
 			float lineY = (((pitch_angle) / 90f) * mCanvasHeight * -1)
 					- mCanvasHeight / 2;
-			System.out.println("Looking for " + (direction_dest_angle));
-			System.out.println("Aiming at " + direction_angle);
-			float lineX = ((direction_angle - direction_dest_angle) / 360f) * mCanvasWidth;
+			double rad_dir = (double) (direction_angle) * Math.PI / 180f;
+			double rad_obje = (double) (direction_dest_angle) * Math.PI / 180f;
+			double deg_to = (rad_obje - rad_dir) * 180f / Math.PI;
+			if (deg_to > 180) {
+				deg_to -= 360;
+			} else if (deg_to < -180) {
+				deg_to += 360;
+			}
+			float lineX = (float) ((((deg_to + 180) / 360f)) * mCanvasWidth);
+			//System.out.println(lineX);
+
 			if (lineY >= 0 && lineY <= mCanvasHeight) {
 				canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
 			}
 			if (lineX >= 0 && lineX <= mCanvasWidth) {
-				canvas.drawLine(mCanvasWidth - lineX, 0, mCanvasWidth - lineX,
+				canvas.drawLine(lineX, 0, lineX,
 						mCanvasHeight, mLinePaint);
 			}
 		}

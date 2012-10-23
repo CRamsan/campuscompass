@@ -161,8 +161,10 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		 * direction + 360; }
 		 */
 
-		// double direction = Locator.Bearing(lat, lon, 46.822937, -96.801003);
-		double direction = Locator.Bearing(lat, lon, 46.900375366, -96.799201965);
+		double direction = Locator.Bearing(lat, lon, 46.822937, -96.801003);
+		
+		
+		//double direction = Locator.Bearing(lat, lon, 46.900375366, -96.799201965);
 		mARView.direction_dest_angle = (int) direction;
 	}
 
