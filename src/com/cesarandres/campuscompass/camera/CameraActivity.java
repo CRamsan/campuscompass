@@ -11,6 +11,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -22,12 +23,11 @@ import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.AugmentedRealityView.AugmentedRealityThread;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
 import com.cesarandres.campuscompass.modules.Locator;
-import com.cesarandres.campuscompass.modules.IUpdatableActivity;
 
-public class CameraActivity extends Activity implements SensorEventListener,
-		IUpdatableActivity {
+public class CameraActivity extends Activity implements SensorEventListener {
 
 	public static final String TAG = "CameraActivity";
+	
 	private Camera mCamera;
 	private CameraPreview mPreview;
 	private AugmentedRealityView mARView;
@@ -139,32 +139,11 @@ public class CameraActivity extends Activity implements SensorEventListener,
 	}
 
 	public void updateBestLocation() {
-		// MU 46.822937
-		// -96.801003
 		double lat = locator.getBestLocation().getLatitude();
 		double lon = locator.getBestLocation().getLongitude();
 
-		// double lat_dist = lat - 46.822937;
-		// double lon_dist = lon + 96.801003;
-
-		// Left 0
-		// double lat_dist = 46.900375366 - lat;
-		// double lon_dist = -96.799201965 + lon;
-
-		// Up 88
-		// double lat_dist = lat - 46.911750793;
-		// double lon_dist = lon + 96.791503906;
-
-		/*
-		 * double direction = ((Math.atan(lat_dist / (-1 * lon_dist)) - (Math.PI
-		 * / 2)) * 180f / Math.PI) + 2; if (direction < 0) { direction =
-		 * direction + 360; }
-		 */
-
 		double direction = Locator.Bearing(lat, lon, 46.822937, -96.801003);
-		
-		
-		//double direction = Locator.Bearing(lat, lon, 46.900375366, -96.799201965);
+
 		mARView.direction_dest_angle = (int) direction;
 	}
 
@@ -204,8 +183,5 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		float roll_angle = event.values[2];
 		mARView.pitch_angle = (int) pitch_angle;
 		mARView.direction_angle = (int) azimuth_angle;
-		// System.out.println("D: " + azimuth_angle);
-		// System.out.println("P: " + pitch_angle);
-		// System.out.println("R: " + roll_angle);
 	}
 }

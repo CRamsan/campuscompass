@@ -1,8 +1,5 @@
 package com.cesarandres.campuscompass.dummy;
 
-import java.util.ArrayList;
-
-import com.cesarandres.campuscompass.R;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;
 

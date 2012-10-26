@@ -1,6 +1,5 @@
 package com.cesarandres.campuscompass.map;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +9,6 @@ import android.view.MenuItem;
 
 import com.cesarandres.campuscompass.PlaceListActivity;
 import com.cesarandres.campuscompass.R;
-import com.cesarandres.campuscompass.R.id;
-import com.cesarandres.campuscompass.R.layout;
-import com.cesarandres.campuscompass.R.menu;
 import com.cesarandres.campuscompass.camera.CameraActivity;
 import com.google.android.maps.MapActivity;
 

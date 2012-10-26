@@ -17,6 +17,7 @@ public class AugmentedRealityView extends SurfaceView implements
 	private AugmentedRealityThread arThread;
 	private Context mContext;
 	private Paint mLinePaint;
+	private Paint mLineDraw;
 
 	public int direction_angle = 0;
 	public int direction_dest_angle = 0;
@@ -187,12 +188,17 @@ public class AugmentedRealityView extends SurfaceView implements
 		 * Canvas.
 		 */
 		private void doDraw(Canvas canvas) {
-			// 0 - 179.9
-			// MU 46.822937
-			// -96.801003
 			canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-			float lineY = (((pitch_angle) / 90f) * mCanvasHeight * -1)
-					- mCanvasHeight / 2;
+			float lineX = -1;
+			float lineY = -1;
+			if (pitch_angle <= 0) {
+				lineY = mCanvasHeight
+						- (((pitch_angle + 180f) / 180f) * mCanvasHeight);
+				if (lineY >= 0 && lineY <= mCanvasHeight) {
+					canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
+				}
+			}
+
 			double rad_dir = (double) (direction_angle) * Math.PI / 180f;
 			double rad_obje = (double) (direction_dest_angle) * Math.PI / 180f;
 			double deg_to = (rad_obje - rad_dir) * 180f / Math.PI;
@@ -201,15 +207,16 @@ public class AugmentedRealityView extends SurfaceView implements
 			} else if (deg_to < -180) {
 				deg_to += 360;
 			}
-			float lineX = (float) ((((deg_to + 180) / 360f)) * mCanvasWidth);
-			//System.out.println(lineX);
-
-			if (lineY >= 0 && lineY <= mCanvasHeight) {
-				canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
-			}
+			lineX = (float) ((((deg_to + 180) / 360f)) * mCanvasWidth);
 			if (lineX >= 0 && lineX <= mCanvasWidth) {
-				canvas.drawLine(lineX, 0, lineX,
-						mCanvasHeight, mLinePaint);
+				canvas.drawLine(lineX, 0, lineX, mCanvasHeight, mLinePaint);
+			}
+
+			canvas.drawCircle(mCanvasWidth / 2, mCanvasHeight / 2, 50,
+					mLinePaint);
+
+			if (lineX > 0 && lineY > 0) {
+				canvas.drawCircle(lineX, lineY, 15, mLinePaint);
 			}
 		}
 
@@ -235,6 +242,10 @@ public class AugmentedRealityView extends SurfaceView implements
 		mLinePaint = new Paint();
 		mLinePaint.setAntiAlias(true);
 		mLinePaint.setARGB(255, 255, 0, 0);
+
+		mLineDraw = new Paint();
+		mLineDraw.setAntiAlias(true);
+		mLineDraw.setARGB(255, 255, 255, 0);
 	}
 
 	/**

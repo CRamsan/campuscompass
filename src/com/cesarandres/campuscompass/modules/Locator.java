@@ -1,5 +1,7 @@
 package com.cesarandres.campuscompass.modules;
 
+import com.cesarandres.campuscompass.camera.CameraActivity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -18,7 +20,7 @@ public class Locator {
 	// ===========================================================
 	// Fields
 	// ===========================================================
-	private IUpdatableActivity activity;
+	private CameraActivity activity;
 
 	private Location bestLocation;
 	private LocationManager locationManager;
@@ -28,13 +30,11 @@ public class Locator {
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-	public Locator(IUpdatableActivity activity) {
+	public Locator(CameraActivity activity) {
 		this.activity = activity;
-		// Acquire a reference to the system Location Manager
 		locationListener = new MobileLocationListener();
 		locationManager = (LocationManager) ((Activity) activity)
 				.getSystemService(Context.LOCATION_SERVICE);
-
 	}
 
 	// ===========================================================
@@ -45,17 +45,9 @@ public class Locator {
 	}
 
 	// ===========================================================
-	// Methods from Parent
-	// ===========================================================
-
-	// ===========================================================
-	// Methods from Interfaces
-	// ===========================================================
-
-	// ===========================================================
 	// Methods
 	// ===========================================================
-	public void updateActivity(IUpdatableActivity newActivity) {
+	public void updateActivity(CameraActivity newActivity) {
 		this.activity = newActivity;
 		locationManager = (LocationManager) ((Activity) newActivity)
 				.getSystemService(Context.LOCATION_SERVICE);
