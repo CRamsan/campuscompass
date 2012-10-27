@@ -5,13 +5,6 @@ import com.google.android.maps.OverlayItem;
 
 public class ContentNDSU {
 
-	public class Place extends OverlayItem {
-
-		public Place(GeoPoint point, String name, String description) {
-			super(point, name, description);
-		}
-	}
-	
 	public static final String[] places_names = { "AES Greenhouse",
 			"Agricultural and Biosystems Engineering", "Alba Bales House",
 			"Alumni, Development Center",
@@ -37,11 +30,11 @@ public class ContentNDSU {
 			"Minard Hall", "Morrill Hall", "Music Education Building",
 			"Nelson Building", "Northern Crops Institute",
 			"Northern Crops Science Lab", "Old Main", "Pavek Hall",
-			"Phoenix International",
-			"Agronomy Greenhouse Plant Diagnostic Laboratory",
-			"Presidents House", "Putnam Hall", "Reed-Johnson Halls",
-			"Renaissance Hall", "Research and Technology Park", "Research I",
-			"Research II", "Residence Dining Center", "Laundry",
+			"Phoenix International", "Plant Sciences Greenhouse",
+			"Potato Research-Pesticide Storage", "Presidents House",
+			"Putnam Hall", "Reed-Johnson Halls", "Renaissance Hall",
+			"Research and Technology Park", "Research I", "Research II",
+			"Residence Dining Center", "Residence Life Facilities Services",
 			"Robinson Hall", "Sanford", "Seim Hall",
 			"Service Center, Pilot Plant", "Sevrinson Hall", "SGC Building",
 			"Shelly Ellig Indoor Track and Field Facility", "Shepperd Arena",
@@ -218,10 +211,13 @@ public class ContentNDSU {
 			"Residence Halls"
 
 			,
-			"Plant Sciences Greenhouse"
+			""
 
 			,
-			"Potato Research-Pesticide Storage"
+			"Agronomy Greenhouse Plant Diagnostic Laboratory"
+
+			,
+			""
 
 			,
 			""
@@ -245,10 +241,10 @@ public class ContentNDSU {
 			"Center for Nanoscale Science and Engineering, Center of Excellence for Advanced Electronics Design & Manufacturing (CAEDM)"
 
 			,
-			"Residence Life Facilities Services"
+			""
 
 			,
-			""
+			"Laundry"
 
 			,
 			"Veterinary Technology"
@@ -333,4 +329,24 @@ public class ContentNDSU {
 			, ""
 
 			, "Corn Seed House, Plant Sciences" };
+	public static final String[] places_address = {
+			"1440 18th Street North\nFargo, ND 58102",
+			"1221 Albrecht Boulevard\nFargo, ND 58102",
+			"1260 University Drive North\nFargo, ND 58102",
+			"1241 University Drive North\nFargo, ND 58102",
+			"1805 15th Avenue North\nFargo, ND 58102",
+			"1315 Centennial Boulevard\nFargo, ND 58102",
+			"1200 Albrecht Boulevard\nFargo, ND 58102",
+			"1523 12th Avenue Northwest\nFargo, ND 58102",
+			"811 2nd Avenue North\nFargo, ND 58102",
+			"1810 NDSU Research Circle North\nFargo, ND 58102",
+			"1301 Centennial Boulevard\nFargo, ND 58102",
+			"1616 Albrecht Boulevard\nFargo, ND 58102", "", "", "", "", "", "",
+			"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+			"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+			"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+			"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+			"", "", "", "", "", "", "", "", "", ""
+
+	};
 }

@@ -41,7 +41,7 @@ public class PlaceDetailFragment extends Fragment {
 					.setImageBitmap(BitmapFactory.decodeResource(
 							this.getResources(), R.drawable.memorialunion));
 			((TextView) rootView.findViewById(R.id.place_address))
-					.setText("1401 Administration Avenue, Fargo, ND 58102");
+					.setText(ContentNDSU.places_address[index]);
 		}
 		return rootView;
 	}

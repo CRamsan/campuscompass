@@ -22,9 +22,10 @@ import com.cesarandres.campuscompass.PlaceListActivity;
 import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.AugmentedRealityView.AugmentedRealityThread;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
+import com.cesarandres.campuscompass.modules.LocationAwareActivity;
 import com.cesarandres.campuscompass.modules.Locator;
 
-public class CameraActivity extends Activity implements SensorEventListener {
+public class CameraActivity extends Activity implements SensorEventListener, LocationAwareActivity {
 
 	public static final String TAG = "CameraActivity";
 	

@@ -3,8 +3,10 @@ package com.cesarandres.campuscompass.camera;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -19,9 +21,9 @@ public class AugmentedRealityView extends SurfaceView implements
 	private Paint mLinePaint;
 	private Paint mLineDraw;
 
-	public int direction_angle = 0;
-	public int direction_dest_angle = 0;
-	public int pitch_angle = 0;
+	public float direction_angle = 0;
+	public float direction_dest_angle = 0;
+	public float pitch_angle = 0;
 
 	public class AugmentedRealityThread extends Thread {
 
@@ -193,7 +195,7 @@ public class AugmentedRealityView extends SurfaceView implements
 			float lineY = -1;
 			if (pitch_angle <= 0) {
 				lineY = mCanvasHeight
-						- (((pitch_angle + 180f) / 180f) * mCanvasHeight);
+						- (((pitch_angle + 180f) / 180f) * (float) mCanvasHeight);
 				if (lineY >= 0 && lineY <= mCanvasHeight) {
 					canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
 				}
@@ -212,8 +214,12 @@ public class AugmentedRealityView extends SurfaceView implements
 				canvas.drawLine(lineX, 0, lineX, mCanvasHeight, mLinePaint);
 			}
 
-			canvas.drawCircle(mCanvasWidth / 2, mCanvasHeight / 2, 50,
-					mLinePaint);
+			canvas.drawArc(new RectF(mCanvasWidth / 2 - 30,
+					mCanvasHeight / 2 - 30, mCanvasWidth / 2 + 30,
+					mCanvasHeight / 2 + 30), 0, 360, false, mLineDraw);
+
+			// canvas.drawCircle(mCanvasWidth / 2, mCanvasHeight / 2, 50,
+			// mLinePaint);
 
 			if (lineX > 0 && lineY > 0) {
 				canvas.drawCircle(lineX, lineY, 15, mLinePaint);
@@ -245,6 +251,7 @@ public class AugmentedRealityView extends SurfaceView implements
 
 		mLineDraw = new Paint();
 		mLineDraw.setAntiAlias(true);
+		mLineDraw.setStyle(Style.STROKE);
 		mLineDraw.setARGB(255, 255, 255, 0);
 	}
 
