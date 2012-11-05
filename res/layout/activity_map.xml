@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mapview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:apiKey="07r48M7l5UiXDXXi-FGQtiZk7SpNK0OKz-P7a6A"
-    android:clickable="true" />
-=======
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mapview"
@@ -14,4 +5,3 @@
     android:layout_height="fill_parent"
     android:apiKey="07r48M7l5UiXzGpbnQEtc7gGxFXq4K9O4E-eAbg"
     android:clickable="true" />
->>>>>>> e8fafd6a03268ac18058892a0626a02d680de392
