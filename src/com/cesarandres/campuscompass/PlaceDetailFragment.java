@@ -37,9 +37,6 @@ public class PlaceDetailFragment extends Fragment {
 					.setText(ContentNDSU.places_names[index]);
 			((TextView) rootView.findViewById(R.id.place_extra))
 					.setText(ContentNDSU.places_descriptions[index]);
-			((ImageView) rootView.findViewById(R.id.place_picture))
-					.setImageBitmap(BitmapFactory.decodeResource(
-							this.getResources(), R.drawable.memorialunion));
 			((TextView) rootView.findViewById(R.id.place_address))
 					.setText(ContentNDSU.places_address[index]);
 		}

@@ -3,6 +3,7 @@ package com.cesarandres.campuscompass;
 import com.cesarandres.campuscompass.camera.CameraActivity;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +11,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+@SuppressLint("NewApi")
 public class PlaceDetailActivity extends FragmentActivity {
 
 	@Override
@@ -17,7 +19,9 @@ public class PlaceDetailActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_place_detail);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 
 		if (savedInstanceState == null) {
 			Bundle arguments = new Bundle();

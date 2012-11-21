@@ -17,10 +17,12 @@ public class PlaceOverlay extends ItemizedOverlay<OverlayItem> {
 
 	public PlaceOverlay(Drawable defaultMarker) {
 		super(boundCenterBottom(defaultMarker));
+		placeList = new ArrayList<Place>();
 	}
 
 	public PlaceOverlay(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
+		placeList = new ArrayList<Place>();
 		this.context = context;
 	}
 
@@ -38,15 +40,15 @@ public class PlaceOverlay extends ItemizedOverlay<OverlayItem> {
 		this.placeList = placeList;
 		populate();
 	}
-	
+
 	@Override
 	protected boolean onTap(int index) {
-	  Place item = placeList.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-	  dialog.setTitle(item.getTitle());
-	  dialog.setMessage(item.getSnippet());
-	  dialog.show();
-	  return true;
+		Place item = placeList.get(index);
+		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		dialog.setTitle(item.getTitle());
+		dialog.setMessage(item.getSnippet());
+		dialog.show();
+		return true;
 	}
 
 }

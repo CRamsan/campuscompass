@@ -1,39 +1,47 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".PlaceDetailFragment" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0.1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/memorialunion" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/place_detail"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" >
-        </TextView>
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/place_extra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-        <ImageView
-            android:id="@+id/place_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:cropToPadding="true"
-            android:scaleType="center" />
+            <TextView
+                android:id="@+id/place_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge" >
+            </TextView>
 
-        <TextView
-            android:id="@+id/place_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/place_extra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-</ScrollView>
+            <TextView
+                android:id="@+id/place_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

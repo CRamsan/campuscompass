@@ -27,6 +27,7 @@ public class NDSUMapActivity extends MapActivity implements
 	private MapView mapView;
 	private Locator locator;
 	private MyLocationOverlay locationOverlay;
+	private PlaceOverlay itemizedoverlay;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class NDSUMapActivity extends MapActivity implements
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.marker);
-		PlaceOverlay itemizedoverlay = new PlaceOverlay(drawable, this);
+		itemizedoverlay = new PlaceOverlay(drawable, this);
 		itemizedoverlay.setOverlay(PlaceListActivity.placeList);
 
 		Drawable drawableMe = this.getResources().getDrawable(
