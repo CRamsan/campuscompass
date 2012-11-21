@@ -115,5 +115,6 @@ public class NDSUMapActivity extends MapActivity implements
 				(int) (locator.getBestLocation().getLatitude() * 1000000),
 				(int) (locator.getBestLocation().getLongitude() * 1000000)),
 				"", ""));
+		mapView.invalidate();
 	}
 }

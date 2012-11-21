@@ -18,11 +18,13 @@ public class PlaceOverlay extends ItemizedOverlay<OverlayItem> {
 	public PlaceOverlay(Drawable defaultMarker) {
 		super(boundCenterBottom(defaultMarker));
 		placeList = new ArrayList<Place>();
+		populate();
 	}
 
 	public PlaceOverlay(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
 		placeList = new ArrayList<Place>();
+		populate();
 		this.context = context;
 	}
 

@@ -25,10 +25,11 @@ import com.cesarandres.campuscompass.map.NDSUMapActivity;
 import com.cesarandres.campuscompass.modules.LocationAwareActivity;
 import com.cesarandres.campuscompass.modules.Locator;
 
-public class CameraActivity extends Activity implements SensorEventListener, LocationAwareActivity {
+public class CameraActivity extends Activity implements SensorEventListener,
+		LocationAwareActivity {
 
 	public static final String TAG = "CameraActivity";
-	
+
 	private Camera mCamera;
 	private CameraPreview mPreview;
 	private AugmentedRealityView mARView;
@@ -51,7 +52,6 @@ public class CameraActivity extends Activity implements SensorEventListener, Loc
 			// Create our Preview view and set it as the content of our
 			// activity.
 			mPreview = new CameraPreview(this, mCamera);
-
 			preview.addView(mPreview);
 		}
 		mARView = new AugmentedRealityView(this, null);

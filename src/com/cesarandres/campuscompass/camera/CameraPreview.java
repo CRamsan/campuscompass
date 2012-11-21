@@ -13,7 +13,6 @@ public class CameraPreview extends SurfaceView implements
 		SurfaceHolder.Callback {
 	private SurfaceHolder mHolder;
 	private Camera mCamera;
-	
 
 	public CameraPreview(Context context, Camera camera) {
 		super(context);
@@ -26,7 +25,6 @@ public class CameraPreview extends SurfaceView implements
 		// deprecated setting, but required on Android versions prior to 3.0
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
-
 
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// Take care of releasing the Camera preview in your
@@ -41,13 +39,12 @@ public class CameraPreview extends SurfaceView implements
 			mCamera.setDisplayOrientation(90);
 			mCamera.startPreview();
 		} catch (IOException e) {
-			Log.d("Camera Preview", "Error setting camera preview: " + e.getMessage());
+			Log.d("Camera Preview",
+					"Error setting camera preview: " + e.getMessage());
 		}
 	}
 
-	
-	public void surfaceChanged(SurfaceHolder holder, int format, int w,
-			int h) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 		if (mHolder.getSurface() == null) {
 			// preview surface does not exist
 			return;
@@ -69,7 +66,8 @@ public class CameraPreview extends SurfaceView implements
 			mCamera.startPreview();
 
 		} catch (Exception e) {
-			Log.d("Camera Preview", "Error starting camera preview: " + e.getMessage());
+			Log.d("Camera Preview",
+					"Error starting camera preview: " + e.getMessage());
 		}
 	}
 }
