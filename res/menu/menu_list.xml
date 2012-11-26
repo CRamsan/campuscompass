@@ -7,12 +7,6 @@
         android:title="@string/text_mapmode">
     </item>
     <item
-        android:id="@+id/menu_cameramode"
-        android:orderInCategory="30"
-        android:showAsAction="always"
-        android:title="@string/text_cameramode">
-    </item>
-    <item
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never"

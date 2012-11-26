@@ -91,7 +91,7 @@ public class PlaceListActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
+		getMenuInflater().inflate(R.menu.menu_list, menu);
 		return true;
 	}
 

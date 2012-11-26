@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 @SuppressLint("NewApi")
 public class PlaceDetailActivity extends FragmentActivity {
+	private int index = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class PlaceDetailActivity extends FragmentActivity {
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.place_detail_container, fragment).commit();
+			index = Integer.parseInt(getIntent().getStringExtra(
+					PlaceDetailFragment.ARG_ITEM_ID));
 		}
 	}
 
@@ -42,12 +45,21 @@ public class PlaceDetailActivity extends FragmentActivity {
 			return true;
 		}
 		Intent intent = null;
+		Bundle bundle;
 		switch (item.getItemId()) {
 		case R.id.menu_cameramode:
 			intent = new Intent(getApplicationContext(), CameraActivity.class);
+			bundle = new Bundle();
+			bundle.putInt(PlaceDetailFragment.ARG_ITEM_ID, index);
+			intent.putExtras(bundle);
+			startActivity(intent);
 			return true;
 		case R.id.menu_mapmode:
 			intent = new Intent(getApplicationContext(), NDSUMapActivity.class);
+			bundle = new Bundle();
+			bundle.putInt(PlaceDetailFragment.ARG_ITEM_ID, index);
+			intent.putExtras(bundle);
+			startActivity(intent);
 			return true;
 		case R.id.menu_settings:
 			return true;
@@ -61,7 +73,7 @@ public class PlaceDetailActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
+		getMenuInflater().inflate(R.menu.menu_detail, menu);
 		menu.removeItem(R.id.menu_exit);
 		return true;
 	}

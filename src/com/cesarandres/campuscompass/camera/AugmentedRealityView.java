@@ -201,6 +201,8 @@ public class AugmentedRealityView extends SurfaceView implements
 				}
 			}
 
+			System.out.println(direction_angle);
+
 			double rad_dir = (double) (direction_angle) * Math.PI / 180f;
 			double rad_obje = (double) (direction_dest_angle) * Math.PI / 180f;
 			double deg_to = (rad_obje - rad_dir) * 180f / Math.PI;

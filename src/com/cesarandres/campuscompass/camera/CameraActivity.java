@@ -1,5 +1,7 @@
 package com.cesarandres.campuscompass.camera;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -18,9 +20,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.cesarandres.campuscompass.PlaceDetailFragment;
 import com.cesarandres.campuscompass.PlaceListActivity;
 import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.AugmentedRealityView.AugmentedRealityThread;
+import com.cesarandres.campuscompass.dummy.Place;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
 import com.cesarandres.campuscompass.modules.LocationAwareActivity;
 import com.cesarandres.campuscompass.modules.Locator;
@@ -37,6 +41,9 @@ public class CameraActivity extends Activity implements SensorEventListener,
 	private SensorManager mSensorManager;
 	private Sensor mSensor;
 	private Locator locator;
+
+	private float latDest;
+	private float lonDest;
 
 	@SuppressLint({ "NewApi", "NewApi" })
 	@Override
@@ -61,6 +68,13 @@ public class CameraActivity extends Activity implements SensorEventListener,
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 		arThread = mARView.getThread();
+
+		Bundle bundle = getIntent().getExtras();
+		int index = bundle.getInt(PlaceDetailFragment.ARG_ITEM_ID);
+		latDest = PlaceListActivity.placeList.get(index).getPoint()
+				.getLatitudeE6() / 1000000;
+		lonDest = PlaceListActivity.placeList.get(index).getPoint()
+				.getLongitudeE6() / 1000000;
 
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game
@@ -133,7 +147,7 @@ public class CameraActivity extends Activity implements SensorEventListener,
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
+		getMenuInflater().inflate(R.menu.menu_detail, menu);
 		menu.removeItem(R.id.menu_cameramode);
 		menu.removeItem(R.id.menu_exit);
 		return true;
@@ -143,7 +157,7 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		double lat = locator.getBestLocation().getLatitude();
 		double lon = locator.getBestLocation().getLongitude();
 
-		double direction = Locator.Bearing(lat, lon, 46.822937, -96.801003);
+		double direction = Locator.Bearing(lat, lon, latDest, lonDest);
 
 		mARView.direction_dest_angle = (int) direction;
 	}
@@ -181,8 +195,7 @@ public class CameraActivity extends Activity implements SensorEventListener,
 	public void onSensorChanged(SensorEvent event) {
 		float azimuth_angle = event.values[0];
 		float pitch_angle = event.values[1];
-		float roll_angle = event.values[2];
-		mARView.pitch_angle = (int) pitch_angle;
 		mARView.direction_angle = (int) azimuth_angle;
+		mARView.pitch_angle = (int) pitch_angle;
 	}
 }

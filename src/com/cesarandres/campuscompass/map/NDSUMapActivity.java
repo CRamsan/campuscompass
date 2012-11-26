@@ -1,7 +1,9 @@
 package com.cesarandres.campuscompass.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -10,9 +12,11 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.cesarandres.campuscompass.PlaceDetailFragment;
 import com.cesarandres.campuscompass.PlaceListActivity;
 import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.CameraActivity;
+import com.cesarandres.campuscompass.dummy.Place;
 import com.cesarandres.campuscompass.modules.LocationAwareActivity;
 import com.cesarandres.campuscompass.modules.Locator;
 import com.google.android.maps.GeoPoint;
@@ -29,6 +33,7 @@ public class NDSUMapActivity extends MapActivity implements
 	private MyLocationOverlay locationOverlay;
 	private PlaceOverlay itemizedoverlay;
 
+	@TargetApi(11)
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,8 +48,18 @@ public class NDSUMapActivity extends MapActivity implements
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.marker);
 		itemizedoverlay = new PlaceOverlay(drawable, this);
-		itemizedoverlay.setOverlay(PlaceListActivity.placeList);
 
+		Bundle bundle = getIntent().getExtras();
+
+		if (bundle != null) {
+			int index = bundle.getInt(PlaceDetailFragment.ARG_ITEM_ID);
+			ArrayList<Place> list = new ArrayList<Place>();
+			list.add(PlaceListActivity.placeList.get(index));
+			itemizedoverlay.setOverlay(list);
+		} else {
+			itemizedoverlay.setOverlay(PlaceListActivity.placeList);
+		}
+		
 		Drawable drawableMe = this.getResources().getDrawable(
 				R.drawable.ic_launcher);
 		locationOverlay = new MyLocationOverlay(drawableMe, this);
@@ -98,7 +113,7 @@ public class NDSUMapActivity extends MapActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
+		getMenuInflater().inflate(R.menu.menu_list, menu);
 		menu.removeItem(R.id.menu_mapmode);
 		menu.removeItem(R.id.menu_exit);
 		return true;
