@@ -25,6 +25,8 @@ public class AugmentedRealityView extends SurfaceView implements
 	public float direction_dest_angle = 0;
 	public float pitch_angle = 0;
 
+	public float offset = 0;
+
 	public class AugmentedRealityThread extends Thread {
 
 		public static final int STATE_LOSE = 1;
@@ -191,37 +193,44 @@ public class AugmentedRealityView extends SurfaceView implements
 		 */
 		private void doDraw(Canvas canvas) {
 			canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+			if (pitch_angle == 0 && direction_angle == 0
+					&& direction_angle == 0) {
+				return;
+			}
+
 			float lineX = -1;
 			float lineY = -1;
-			if (pitch_angle <= 0) {
-				lineY = mCanvasHeight
-						- (((pitch_angle + 180f) / 180f) * (float) mCanvasHeight);
-				if (lineY >= 0 && lineY <= mCanvasHeight) {
-					canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
-				}
+			if (pitch_angle <= 0 && pitch_angle >= -180) {
+				lineY = ((pitch_angle * -1) / 180f) * ((float) mCanvasHeight);
+				canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
 			}
 
-			System.out.println(direction_angle);
+			float direction_angle_tmp = direction_angle + offset;
+			if (direction_angle_tmp > 360) {
+				direction_angle_tmp -= 360;
+			} else if (direction_angle_tmp < 0) {
+				direction_angle_tmp += 360;
+			}
 
-			double rad_dir = (double) (direction_angle) * Math.PI / 180f;
-			double rad_obje = (double) (direction_dest_angle) * Math.PI / 180f;
-			double deg_to = (rad_obje - rad_dir) * 180f / Math.PI;
-			if (deg_to > 180) {
-				deg_to -= 360;
-			} else if (deg_to < -180) {
-				deg_to += 360;
+			lineX = (float) (direction_angle_tmp - direction_dest_angle) % 360;
+			boolean rev = false;
+			System.out.print(lineX + " === ");
+			if (lineX > 180) {
+				lineX = 360f - lineX;
 			}
-			lineX = (float) ((((deg_to + 180) / 360f)) * mCanvasWidth);
-			if (lineX >= 0 && lineX <= mCanvasWidth) {
-				canvas.drawLine(lineX, 0, lineX, mCanvasHeight, mLinePaint);
+
+			lineX = (mCanvasWidth / 2)
+					- ((lineX / 180f) * (float) (mCanvasWidth / 2));
+			if (lineX > mCanvasWidth) {
+				lineX -= mCanvasWidth;
 			}
+			System.out.println(lineX);
+
+			canvas.drawLine(lineX, 0, lineX, mCanvasHeight, mLinePaint);
 
 			canvas.drawArc(new RectF(mCanvasWidth / 2 - 30,
 					mCanvasHeight / 2 - 30, mCanvasWidth / 2 + 30,
 					mCanvasHeight / 2 + 30), 0, 360, false, mLineDraw);
-
-			// canvas.drawCircle(mCanvasWidth / 2, mCanvasHeight / 2, 50,
-			// mLinePaint);
 
 			if (lineX > 0 && lineY > 0) {
 				canvas.drawCircle(lineX, lineY, 15, mLinePaint);
@@ -298,5 +307,13 @@ public class AugmentedRealityView extends SurfaceView implements
 
 		// set preview size and make any resize, rotate or
 		// reformatting changes here
+	}
+
+	public void setOffset() {
+		if (direction_angle > 180) {
+			offset = 360 - direction_angle;
+		} else {
+			offset = direction_angle * -1;
+		}
 	}
 }

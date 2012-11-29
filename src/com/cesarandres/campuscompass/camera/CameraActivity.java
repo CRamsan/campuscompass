@@ -1,11 +1,10 @@
 package com.cesarandres.campuscompass.camera;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -13,24 +12,24 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 
 import com.cesarandres.campuscompass.PlaceDetailFragment;
 import com.cesarandres.campuscompass.PlaceListActivity;
 import com.cesarandres.campuscompass.R;
 import com.cesarandres.campuscompass.camera.AugmentedRealityView.AugmentedRealityThread;
-import com.cesarandres.campuscompass.dummy.Place;
 import com.cesarandres.campuscompass.map.NDSUMapActivity;
 import com.cesarandres.campuscompass.modules.LocationAwareActivity;
 import com.cesarandres.campuscompass.modules.Locator;
 
 public class CameraActivity extends Activity implements SensorEventListener,
-		LocationAwareActivity {
+		LocationAwareActivity, OnClickListener {
 
 	public static final String TAG = "CameraActivity";
 
@@ -63,6 +62,7 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		}
 		mARView = new AugmentedRealityView(this, null);
 		preview.addView(mARView);
+		preview.setOnClickListener(this);
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
@@ -72,9 +72,9 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		Bundle bundle = getIntent().getExtras();
 		int index = bundle.getInt(PlaceDetailFragment.ARG_ITEM_ID);
 		latDest = PlaceListActivity.placeList.get(index).getPoint()
-				.getLatitudeE6() / 1000000;
+				.getLatitudeE6() / 1000000f;
 		lonDest = PlaceListActivity.placeList.get(index).getPoint()
-				.getLongitudeE6() / 1000000;
+				.getLongitudeE6() / 1000000f;
 
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game
@@ -157,9 +157,16 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		double lat = locator.getBestLocation().getLatitude();
 		double lon = locator.getBestLocation().getLongitude();
 
-		double direction = Locator.Bearing(lat, lon, latDest, lonDest);
+		double dy = latDest - lat;
+		double dx = Math.cos(Math.PI / 180 * lat) * (lonDest - lon);
+		double angle = ((Math.atan2(dy, dx) - (Math.PI / 2f)) * 180f / Math.PI)
+				* -1f;
 
-		mARView.direction_dest_angle = (int) direction;
+		if (angle < 0) {
+			angle += 360;
+		}
+
+		mARView.direction_dest_angle = (int) angle;
 	}
 
 	/** Check if this device has a camera */
@@ -195,7 +202,12 @@ public class CameraActivity extends Activity implements SensorEventListener,
 	public void onSensorChanged(SensorEvent event) {
 		float azimuth_angle = event.values[0];
 		float pitch_angle = event.values[1];
-		mARView.direction_angle = (int) azimuth_angle;
-		mARView.pitch_angle = (int) pitch_angle;
+		mARView.direction_angle = azimuth_angle;
+		mARView.pitch_angle = pitch_angle;
+	}
+
+	@Override
+	public void onClick(View v) {
+		mARView.setOffset();
 	}
 }

@@ -4,11 +4,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".PlaceDetailFragment" >
-
+
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:alpha="0.3"
         android:scaleType="centerCrop"
         android:src="@drawable/memorialunion" />

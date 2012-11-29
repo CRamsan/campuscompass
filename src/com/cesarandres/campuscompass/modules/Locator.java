@@ -9,6 +9,7 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
 
+
 public class Locator {
 	// ===========================================================
 	// Constants
