@@ -202,7 +202,6 @@ public class AugmentedRealityView extends SurfaceView implements
 			float lineY = -1;
 			if (pitch_angle <= 0 && pitch_angle >= -180) {
 				lineY = ((pitch_angle * -1) / 180f) * ((float) mCanvasHeight);
-				canvas.drawLine(0, lineY, mCanvasWidth, lineY, mLinePaint);
 			}
 
 			float direction_angle_tmp = direction_angle + offset;
@@ -214,19 +213,12 @@ public class AugmentedRealityView extends SurfaceView implements
 
 			lineX = (float) (direction_angle_tmp - direction_dest_angle) % 360;
 			boolean rev = false;
-			System.out.print(lineX + " === ");
-			if (lineX > 180) {
-				lineX = 360f - lineX;
-			}
-
+			
 			lineX = (mCanvasWidth / 2)
 					- ((lineX / 180f) * (float) (mCanvasWidth / 2));
 			if (lineX > mCanvasWidth) {
 				lineX -= mCanvasWidth;
 			}
-			System.out.println(lineX);
-
-			canvas.drawLine(lineX, 0, lineX, mCanvasHeight, mLinePaint);
 
 			canvas.drawArc(new RectF(mCanvasWidth / 2 - 30,
 					mCanvasHeight / 2 - 30, mCanvasWidth / 2 + 30,

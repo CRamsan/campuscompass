@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -42,6 +43,12 @@ public class PlaceListActivity extends FragmentActivity implements
 		if (placeList == null) {
 			placeList = new ArrayList<Place>();
 			new DownloadDataTask().execute();
+		}
+		
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle("NDSU Buildings");
 		}
 	}
 
