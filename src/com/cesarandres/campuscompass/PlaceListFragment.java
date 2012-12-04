@@ -155,8 +155,8 @@ public class PlaceListFragment extends ListFragment {
 			}
 
 			// Bind the data efficiently with the holder.
-			holder.name.setText(ContentNDSU.places_names[position]);
-			holder.description.setText(ContentNDSU.places_descriptions[position]);
+			holder.name.setText("Building Name: " + ContentNDSU.places_names[position]);
+			holder.description.setText("What else can I find here: " + ContentNDSU.places_descriptions[position]);
 			holder.icon.setImageResource(R.drawable.ic_launcher);
 
 			return convertView;

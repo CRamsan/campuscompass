@@ -63,19 +63,21 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		mARView = new AugmentedRealityView(this, null);
 		preview.addView(mARView);
 		preview.setOnClickListener(this);
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-			ActionBar actionBar = getActionBar();
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle("Follow the circle");
-		}
-		arThread = mARView.getThread();
-
+		
 		Bundle bundle = getIntent().getExtras();
 		int index = bundle.getInt(PlaceDetailFragment.ARG_ITEM_ID);
 		latDest = PlaceListActivity.placeList.get(index).getPoint()
 				.getLatitudeE6() / 1000000f;
 		lonDest = PlaceListActivity.placeList.get(index).getPoint()
 				.getLongitudeE6() / 1000000f;
+
+		
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle(PlaceListActivity.placeList.get(index).getTitle());
+		}
+		arThread = mARView.getThread();
 
 		if (savedInstanceState == null) {
 			// we were just launched: set up a new game

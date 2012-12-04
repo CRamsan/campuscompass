@@ -39,11 +39,6 @@ public class NDSUMapActivity extends MapActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-			ActionBar actionBar = getActionBar();
-			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle("NDSU Map");
-		}
 		mapView = (MapView) findViewById(R.id.mapview);
 
 		List<Overlay> mapOverlays = mapView.getOverlays();
@@ -57,8 +52,18 @@ public class NDSUMapActivity extends MapActivity implements
 			ArrayList<Place> list = new ArrayList<Place>();
 			list.add(PlaceListActivity.placeList.get(index));
 			itemizedoverlay.setOverlay(list);
+			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+				ActionBar actionBar = getActionBar();
+				actionBar.setDisplayHomeAsUpEnabled(true);
+				actionBar.setTitle(PlaceListActivity.placeList.get(index).getTitle());
+			}
 		} else {
 			itemizedoverlay.setOverlay(PlaceListActivity.placeList);
+			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+				ActionBar actionBar = getActionBar();
+				actionBar.setDisplayHomeAsUpEnabled(true);
+				actionBar.setTitle("NDSU Map");
+			}
 		}
 
 		Drawable drawableMe = this.getResources().getDrawable(
