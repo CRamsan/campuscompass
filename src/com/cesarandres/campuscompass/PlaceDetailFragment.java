@@ -1,6 +1,5 @@
 package com.cesarandres.campuscompass;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,11 +33,19 @@ public class PlaceDetailFragment extends Fragment {
 				container, false);
 		if (index != -1) {
 			((TextView) rootView.findViewById(R.id.place_detail))
-					.setText(ContentNDSU.places_names[index]);
+					.setText("Building name: "
+							+ ContentNDSU.places_names[index]);
 			((TextView) rootView.findViewById(R.id.place_extra))
-					.setText(ContentNDSU.places_descriptions[index]);
+					.setText("What can you find here: "
+							+ ContentNDSU.places_descriptions[index]);
 			((TextView) rootView.findViewById(R.id.place_address))
-					.setText(ContentNDSU.places_address[index]);
+					.setText("Address: " + ContentNDSU.places_address[index]);
+
+			((ImageView) rootView.findViewById(R.id.imageViewBackground))
+					.setImageResource(ContentNDSU.getDrawableResourceHD(index));
+			
+			((ImageView) rootView.findViewById(R.id.imageViewForeground))
+			.setImageResource(ContentNDSU.getDrawableResourceHD(index));
 		}
 		return rootView;
 	}

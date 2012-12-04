@@ -44,7 +44,7 @@ public class PlaceListActivity extends FragmentActivity implements
 			placeList = new ArrayList<Place>();
 			new DownloadDataTask().execute();
 		}
-		
+
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
@@ -115,12 +115,14 @@ public class PlaceListActivity extends FragmentActivity implements
 			Geocoder geocoder = new Geocoder(getApplicationContext(),
 					Locale.getDefault());
 
+			String address;
 			for (int i = 0; i < ContentNDSU.places_address.length; i++) {
 				List<Address> location = null;
 				try {
-					location = geocoder.getFromLocationName(
-							ContentNDSU.places_address[i], 1);
+					address = ContentNDSU.places_address[i];
+					location = geocoder.getFromLocationName(address, 1);
 				} catch (IOException e) {
+					e.printStackTrace();
 				}
 				if (location != null && location.size() > 0) {
 					placeList.add(new Place(new GeoPoint((int) (location.get(0)

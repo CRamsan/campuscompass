@@ -67,7 +67,7 @@ public class NDSUMapActivity extends MapActivity implements
 		}
 
 		Drawable drawableMe = this.getResources().getDrawable(
-				R.drawable.ic_launcher);
+				R.drawable.location);
 		locationOverlay = new MyLocationOverlay(drawableMe, this);
 
 		mapOverlays.add(itemizedoverlay);

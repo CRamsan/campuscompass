@@ -6,10 +6,10 @@
     tools:context=".PlaceDetailFragment" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageViewBackground"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:alpha="0.3"
+        android:alpha="0.15"
         android:scaleType="centerCrop"
         android:src="@drawable/memorialunion" />
 
@@ -18,30 +18,53 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/place_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge" >
-            </TextView>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"
+                android:text="Title"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/place_extra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_alignLeft="@+id/place_detail"
+                android:layout_below="@+id/place_detail"
+                android:layout_marginTop="16dp"
+                android:text="Extra"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/place_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/place_extra"
+                android:layout_below="@+id/place_extra"
+                android:layout_marginTop="16dp"
+                android:text="Address"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageViewForeground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/place_address"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:src="@drawable/memorialunion" />
+
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

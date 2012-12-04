@@ -1,6 +1,8 @@
 
 package com.cesarandres.campuscompass.dummy;
 
+import com.cesarandres.campuscompass.R;
+
 
 public class ContentNDSU {
 
@@ -348,4 +350,151 @@ public class ContentNDSU {
 			"", "", "", "", "", "", "", "", "", ""
 
 	};
+	
+	
+	public static int getDrawableResource(int position){
+		switch (position) {
+		case 1:
+			return R.drawable.agandbio;
+			
+		case 2:
+			return R.drawable.albabales;
+			
+		case 3:
+			return R.drawable.alumnicenter;
+			
+		case 4:
+			return R.drawable.animalnutrition;
+			
+		case 5:
+			return R.drawable.archandlandcape;
+			
+		case 6:
+			return R.drawable.askanase;
+			
+		case 7:
+			return R.drawable.auxiliary;
+			
+		case 9:
+			return R.drawable.barryhall;
+			
+		case 10:
+			return R.drawable.bensonbunker;
+			
+		case 11:
+			return R.drawable.bio;
+			
+		case 13:
+			return R.drawable.bisoncourt;
+			
+		case 14:
+			return R.drawable.bsa;
+			
+		case 15:
+			return R.drawable.burgum;
+			
+		case 16:
+			return R.drawable.ceres;
+			
+		case 17:
+			return R.drawable.churchill;
+			
+		case 18:
+			return R.drawable.civil;
+			
+		case 20:
+			return R.drawable.criminaljustice;
+			
+		case 21:
+			return R.drawable.dacotha;
+			
+		case 22:
+			return R.drawable.dinan;
+			
+		case 23:
+			return R.drawable.dolve;
+			
+		case 24:
+			return R.drawable.dunbar;
+			
+		case 25:
+			return R.drawable.emorrow;
+			
+		default:
+			return R.drawable.logo;
+		}
+	}
+	
+	public static int getDrawableResourceHD(int position){
+		switch (position) {
+		case 1:
+			return R.drawable.full_agandbio;
+			
+		case 2:
+			return R.drawable.full_albabales;
+			
+		case 3:
+			return R.drawable.full_alumnicenter;
+			
+		case 4:
+			return R.drawable.full_animalnutrition;
+			
+		case 5:
+			return R.drawable.full_archandlandcape;
+			
+		case 6:
+			return R.drawable.full_askanase;
+			
+		case 7:
+			return R.drawable.full_auxiliary;
+			
+		case 9:
+			return R.drawable.full_barryhall;
+			
+		case 10:
+			return R.drawable.full_bensonbunker;
+			
+		case 11:
+			return R.drawable.full_bio;
+			
+		case 13:
+			return R.drawable.full_bisoncourt;
+			
+		case 14:
+			return R.drawable.full_bsa;
+			
+		case 15:
+			return R.drawable.full_burgum;
+			
+		case 16:
+			return R.drawable.full_ceres;
+			
+		case 17:
+			return R.drawable.full_churchill;
+			
+		case 18:
+			return R.drawable.full_civil;
+			
+		case 20:
+			return R.drawable.full_criminaljustice;
+			
+		case 21:
+			return R.drawable.full_dacotha;
+			
+		case 22:
+			return R.drawable.full_dinan;
+			
+		case 23:
+			return R.drawable.full_dolve;
+			
+		case 24:
+			return R.drawable.full_dunbar;
+			
+		case 25:
+			return R.drawable.full_emorrow;
+			
+		default:
+			return R.drawable.memorialunion;
+		}
+	}
 }
