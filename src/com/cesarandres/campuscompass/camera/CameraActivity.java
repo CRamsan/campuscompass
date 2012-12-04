@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.cesarandres.campuscompass.PlaceDetailFragment;
 import com.cesarandres.campuscompass.PlaceListActivity;
@@ -63,7 +64,7 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		mARView = new AugmentedRealityView(this, null);
 		preview.addView(mARView);
 		preview.setOnClickListener(this);
-		
+
 		Bundle bundle = getIntent().getExtras();
 		int index = bundle.getInt(PlaceDetailFragment.ARG_ITEM_ID);
 		latDest = PlaceListActivity.placeList.get(index).getPoint()
@@ -71,11 +72,11 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		lonDest = PlaceListActivity.placeList.get(index).getPoint()
 				.getLongitudeE6() / 1000000f;
 
-		
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle(PlaceListActivity.placeList.get(index).getTitle());
+			actionBar.setTitle(PlaceListActivity.placeList.get(index)
+					.getTitle());
 		}
 		arThread = mARView.getThread();
 
@@ -101,6 +102,9 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		arThread.setRunning(true);
 		mSensorManager.registerListener(this, mSensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
+		Toast.makeText(getApplicationContext(),
+				"Please wait until we have a GPS lock...", Toast.LENGTH_LONG)
+				.show();
 	}
 
 	@Override

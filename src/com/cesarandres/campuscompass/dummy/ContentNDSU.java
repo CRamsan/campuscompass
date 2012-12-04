@@ -375,7 +375,7 @@ public class ContentNDSU {
 		case 7:
 			return R.drawable.auxiliary;
 			
-		case 9:
+		case 8:
 			return R.drawable.barryhall;
 			
 		case 10:
@@ -448,7 +448,7 @@ public class ContentNDSU {
 		case 7:
 			return R.drawable.full_auxiliary;
 			
-		case 9:
+		case 8:
 			return R.drawable.full_barryhall;
 			
 		case 10:

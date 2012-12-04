@@ -120,6 +120,9 @@ public class PlaceListActivity extends FragmentActivity implements
 				List<Address> location = null;
 				try {
 					address = ContentNDSU.places_address[i];
+					if(address == ""){
+						continue;
+					}
 					location = geocoder.getFromLocationName(address, 1);
 				} catch (IOException e) {
 					e.printStackTrace();
