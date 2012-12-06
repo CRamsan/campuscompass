@@ -42,6 +42,7 @@ public class CameraActivity extends Activity implements SensorEventListener,
 	private Sensor mSensor;
 	private Locator locator;
 
+	private String title;
 	private float latDest;
 	private float lonDest;
 
@@ -75,9 +76,10 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle(PlaceListActivity.placeList.get(index)
-					.getTitle());
+			actionBar.setTitle("Wait until getting GPS lock...");
+			title = PlaceListActivity.placeList.get(index).getTitle();
 		}
+				
 		arThread = mARView.getThread();
 
 		if (savedInstanceState == null) {
@@ -169,6 +171,12 @@ public class CameraActivity extends Activity implements SensorEventListener,
 		double angle = ((Math.atan2(dy, dx) - (Math.PI / 2f)) * 180f / Math.PI)
 				* -1f;
 
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar actionBar = getActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setTitle(title);
+		}
+		
 		if (angle < 0) {
 			angle += 360;
 		}
